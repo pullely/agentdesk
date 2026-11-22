@@ -124,7 +124,7 @@ export async function runTurn(env: Env, bot: LoadedBot, input: TurnInput): Promi
     const model = resolveModel({
       modelRef: bot.version.modelRef,
       ai: env.AI,
-      gateway: { ...(env.CLOUDFLARE_ACCOUNT_ID ? { accountId: env.CLOUDFLARE_ACCOUNT_ID } : {}), ...(env.AI_GATEWAY_ID ? { gatewayId: env.AI_GATEWAY_ID } : {}) },
+      gateway: { ...(env.AI_GATEWAY_ID ? { gatewayId: env.AI_GATEWAY_ID } : {}), ...(key && env.AI_GATEWAY_ID ? await gatewayUrl(env) : {}) },
       key,
       metadata: { org: input.orgId, project: input.projectId, run: runId, env: input.env },
     });
@@ -222,6 +222,17 @@ export async function runTurn(env: Env, bot: LoadedBot, input: TurnInput): Promi
     payload: { status: result.status, source: input.source, tokensIn: result.tokensIn, tokensOut: result.tokensOut, toolCalls: result.steps.filter((s) => s.kind === "tool").length },
   });
   return result;
+}
+
+/** The environment's AI Gateway base URL, from the AI binding (BYOK only). */
+async function gatewayUrl(env: Env): Promise<{ baseUrl?: string }> {
+  try {
+    const gw = (env.AI as unknown as { gateway?: (id: string) => { getUrl: () => Promise<string> } })?.gateway?.(env.AI_GATEWAY_ID!);
+    const url = gw ? await gw.getUrl() : null;
+    return url ? { baseUrl: url } : {};
+  } catch {
+    return {};
+  }
 }
 
 /** Grants → the policy's input map, keyed by the tool name the model sees. */

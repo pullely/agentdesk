@@ -9,8 +9,6 @@ export interface Env {
   CONNECTORS_WORKER?: Fetcher;
   /** The AI Gateway every model call goes through (agentdesk-<env>). */
   AI_GATEWAY_ID?: string;
-  /** Cloudflare account id, for BYOK calls through AI Gateway. */
-  CLOUDFLARE_ACCOUNT_ID?: string;
   /** Vault key-encryption keys (base64, 32 bytes). */
   VAULT_KEK_V1?: string;
   VAULT_KEK_V2?: string;

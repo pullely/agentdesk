@@ -1,0 +1,18 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-12
+  title: "AD1: the runtime plans on main — no duplicate CLOUDFLARE_ACCOUNT_ID; gateway URL from the AI binding"
+spec:
+  goal: "main plans and converges again: agent-runtime-worker no longer binds CLOUDFLARE_ACCOUNT_ID as an optional secret (the deploy profile binds it already), BYOK calls reach AI Gateway by the URL the AI binding gives, and the rendered wrangler.jsonc of the agent Workers is gitignored."
+  affects:
+    - ".gitignore"
+    - "apps/agent-runtime-worker/**"
+    - "apps/bots-worker/wrangler.jsonc"
+    - "packages/agent-core/src/model.ts"
+    - "tasks/**"
+    - "specs/epics/agentdesk-agent-bots/**"
+  doneWhen:
+    - "the main convergence after this merge plans and deploys agent-runtime-worker on stage and prod"
+    - "agentdesk-agent-runtime-worker /health is reachable through its binding (bots-worker playground no longer answers runtime_unavailable)"
+  gates: []

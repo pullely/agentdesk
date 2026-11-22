@@ -9,7 +9,7 @@ Part of the agentdesk runtime (specs/epics/agentdesk-agent-bots).
 - cloudflare-d1 (PLATFORM_DB: bots_*, connectors_*, vault_*, agent_runs, metering, events)
 - Workers AI (AI) through AI Gateway agentdesk-<env>
 - connectors-worker (CONNECTORS_WORKER: MCP calls, AD-6)
-- VAULT_KEK_V1, CLOUDFLARE_ACCOUNT_ID (runtime secrets)
+- VAULT_KEK_V1 (runtime secret); the AI Gateway URL comes from the AI binding
 
 ## Depended on by
 
