@@ -47,9 +47,9 @@ spec:
 
   optionalSecretEnv:
     # The vault KEK (one value per environment, shared with config-worker and
-    # slack-gateway-worker) and the account id for BYOK through AI Gateway.
+    # slack-gateway-worker). BYOK calls reach AI Gateway by the URL the AI
+    # binding gives (env.AI.gateway(id).getUrl()), so no account id is needed.
     VAULT_KEK_V1: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/VAULT_KEK_V1"
-    CLOUDFLARE_ACCOUNT_ID: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/CLOUDFLARE_ACCOUNT_ID"
 
   subscribe:
     environments:
@@ -89,7 +89,7 @@ spec:
     owner: sourceplane
     repo: agentdesk
 
-    runtimeSecrets: "VAULT_KEK_V1,CLOUDFLARE_ACCOUNT_ID"
+    runtimeSecrets: "VAULT_KEK_V1"
     turboFilter: "@saas/agent-runtime-worker"
     wranglerConfig: wrangler.jsonc
     wranglerTemplate: wrangler.template.jsonc

@@ -33,6 +33,11 @@ apps/membership-worker/wrangler.jsonc
 apps/projects-worker/wrangler.jsonc
 apps/identity-worker/wrangler.jsonc
 apps/billing-worker/wrangler.jsonc
+# agentdesk: the agent Workers are wiring-templated too
+apps/bots-worker/wrangler.jsonc
+apps/agent-runtime-worker/wrangler.jsonc
+apps/slack-gateway-worker/wrangler.jsonc
+apps/connectors-worker/wrangler.jsonc
 apps/metering-worker/wrangler.jsonc
 apps/notifications-worker/wrangler.jsonc
 apps/admin-worker/wrangler.jsonc

@@ -14,6 +14,8 @@ import { parseModelRef, type Provider } from "./refs";
 export { DEFAULT_MODEL_REF, WORKERS_AI_MODELS, parseModelRef, type ModelRef, type Provider } from "./refs";
 
 export interface GatewayConfig {
+  /** The gateway's base URL, when the caller already has it (env.AI.gateway(id).getUrl()). */
+  baseUrl?: string;
   /** Cloudflare account id the gateway lives in. */
   accountId?: string;
   /** Gateway name, one per environment (agentdesk-stage, agentdesk-prod). */
@@ -45,6 +47,7 @@ export interface ResolvedModel {
 }
 
 function gatewayBase(g?: GatewayConfig): string | null {
+  if (g?.baseUrl) return g.baseUrl.replace(/\/$/, "");
   if (!g?.accountId || !g.gatewayId) return null;
   return `https://gateway.ai.cloudflare.com/v1/${g.accountId}/${g.gatewayId}`;
 }
