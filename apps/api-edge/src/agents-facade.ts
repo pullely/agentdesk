@@ -21,6 +21,8 @@ const ROUTES: [RegExp, Target][] = [
   // slack-gateway-worker (AD-5): installations, the install URL, bindings.
   [/^\/v1\/organizations\/[^/]+\/slack\/(installations(\/[^/]+)?|install-url)$/, "SLACK_GATEWAY_WORKER"],
   [/^\/v1\/organizations\/[^/]+\/projects\/[^/]+\/slack\/bindings$/, "SLACK_GATEWAY_WORKER"],
+  // connectors-worker (AD-6): the org's MCP servers.
+  [/^\/v1\/organizations\/[^/]+\/connectors(\/[^/]+(\/sync)?)?$/, "CONNECTORS_WORKER"],
 ];
 
 const FORWARDED_HEADERS = ["content-type", "traceparent", "idempotency-key"];

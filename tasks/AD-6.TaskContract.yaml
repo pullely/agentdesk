@@ -1,0 +1,19 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-6
+  title: "AD1: connectors-worker — remote MCP servers by URL with allow/deny grants"
+spec:
+  goal: "connectors-worker is deployed on stage and prod: an org adds a remote MCP server by URL (none or bearer, SSRF-guarded, token in the vault), its tools are discovered and cached with description hashes, sync reports changed descriptions, and agent-runtime calls a bot's granted MCP tools through an McpSession Durable Object."
+  affects:
+    - "apps/connectors-worker/**"
+    - "tests/connectors-worker/**"
+    - "apps/api-edge/**"
+    - "pnpm-lock.yaml"
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "tasks/**"
+  doneWhen:
+    - "agentdesk-connectors-worker-{stage,prod} are deployed with the McpSession class and bound into api-edge and agent-runtime"
+    - "GET /v1/organizations/{org}/connectors through api-edge reaches the worker (401 without a session)"
+    - "tests/connectors-worker green: SSRF refusals, discovery, bearer in the vault, changed descriptions, granted-only calls via McpSession"
+  gates: []
