@@ -686,7 +686,9 @@ describe("listEffectivePermissions", () => {
     expect(result.derivedScope.orgId).toBe("org_1");
 
     const allowed = result.permissions.filter((p) => p.allow);
-    expect(allowed.length).toBe(31);
+    // 31 baseline + agentdesk's two org-level actions (connector.manage,
+    // provider_key.manage); the bot actions are project-scoped.
+    expect(allowed.length).toBe(33);
   });
 
   it("returns limited permissions for viewer", () => {

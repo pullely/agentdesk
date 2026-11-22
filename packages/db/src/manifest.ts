@@ -183,5 +183,14 @@ export const manifest: MigrationManifest = {
       description:
         "Connection pointer on the inbound-delivery inbox (nullable connection_id + partial index) — lets the per-connection delivery log scope precisely; attributed by the IG2 cron drain",
     },
+    {
+      id: "200_agents_foundation",
+      context: "agents",
+      path: "200_agents_foundation/up.sql",
+      checksum:
+        "d6143fd9861442a108d11b8f6356fe0827ff757929105da486b0cede918ffa71",
+      description:
+        "agentdesk agent bots foundation (AD-2) — per-org vault keys and envelope-encrypted secrets, BYOK model keys, bot profiles and versioned configs, Slack installations and bindings, MCP connector servers, grants and user tokens, agent runs and their steps",
+    },
   ],
 };

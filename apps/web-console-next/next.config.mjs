@@ -38,10 +38,10 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_DEPLOY_ENV: process.env.NEXT_PUBLIC_DEPLOY_ENV ?? "",
-    // M0 / Solo profile (Agentdesk ships single-user). Build with
-    // NEXT_PUBLIC_SOLO_MODE=false to restore the full multi-tenant baseline.
-    // See specs/profiles/solo-m0.md.
-    NEXT_PUBLIC_SOLO_MODE: process.env.NEXT_PUBLIC_SOLO_MODE ?? "true",
+    // M0 / Solo profile. agentdesk is multi-tenant (orgs → projects, one
+    // project per bot), so it ships with Solo OFF (agentdesk-agent-bots AD-2).
+    // Build with NEXT_PUBLIC_SOLO_MODE=true for the single-user profile.
+    NEXT_PUBLIC_SOLO_MODE: process.env.NEXT_PUBLIC_SOLO_MODE ?? "false",
   },
 };
 

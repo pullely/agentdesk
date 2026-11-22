@@ -1,0 +1,58 @@
+{
+  "name": "@saas/agent-core-tests",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1",
+      "\\.wasm$": "<rootDir>/src/wasm-stub.ts",
+      "^@saas/agent-core$": "<rootDir>/../../packages/agent-core/src/index.ts",
+      "^@saas/agent-core/(.*)$": "<rootDir>/../../packages/agent-core/src/$1.ts"
+    },
+    "transform": {
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "useESM": true,
+          "diagnostics": {
+            "ignoreCodes": [
+              "TS151001"
+            ]
+          }
+        }
+      ]
+    },
+    "testMatch": [
+      "<rootDir>/src/**/*.test.ts"
+    ]
+  },
+  "devDependencies": {
+    "@saas/eslint-config": "workspace:*",
+    "@saas/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.17.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.8.3",
+    "@jest/globals": "^29.7.0"
+  },
+  "dependencies": {
+    "@ai-sdk/policy-opa": "1.0.179",
+    "@ai-sdk/provider": "4.0.39",
+    "@open-policy-agent/opa-wasm": "1.10.0",
+    "@saas/agent-core": "workspace:*",
+    "ai": "7.0.179",
+    "zod": "4.4.3"
+  }
+}

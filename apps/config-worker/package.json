@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@saas/contracts": "workspace:*",
-    "@saas/db": "workspace:*"
+    "@saas/db": "workspace:*",
+    "@saas/agent-core": "workspace:*",
+    "@saas/worker-kit": "workspace:*"
   }
 }

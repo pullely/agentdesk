@@ -57,7 +57,8 @@ export type RouteFamily =
   | "billing"
   | "audit"
   | "notifications"
-  | "integrations";
+  | "integrations"
+  | "agents";
 
 interface BucketLimits {
   /** Bucket capacity (max tokens). */
@@ -119,6 +120,11 @@ const LIMITS: Record<RouteFamily, FamilyConfig> = {
   integrations: {
     identity: { limit: 60, windowSec: 60 },
     org: { limit: 300, windowSec: 60 },
+  },
+  // agentdesk: bot builder, playground, connectors, model keys.
+  agents: {
+    identity: { limit: 120, windowSec: 60 },
+    org: { limit: 600, windowSec: 60 },
   },
 };
 

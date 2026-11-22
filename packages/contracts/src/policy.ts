@@ -120,6 +120,12 @@ export const ORGANIZATION_ACTIONS = [
   "project.config.write",
   "project.webhook.read",
   "project.webhook.write",
+  // agentdesk (AD-2)
+  "bot.config.write",
+  "bot.publish",
+  "connector.manage",
+  "provider_key.manage",
+  "run.read",
 ] as const;
 
 export type OrganizationAction = (typeof ORGANIZATION_ACTIONS)[number];

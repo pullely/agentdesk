@@ -51,6 +51,11 @@ spec:
 
   optionalSecretEnv:
     SECRET_ENCRYPTION_KEY: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/SECRET_ENCRYPTION_KEY"
+    # agentdesk vault (AD-2): the key-encryption key that wraps every org's
+    # data key. ONE value per environment, shared by config-worker (stores),
+    # agent-runtime-worker and slack-gateway-worker (use) — never generated
+    # here, because three Workers must hold the same key.
+    VAULT_KEK_V1: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/VAULT_KEK_V1"
 
   subscribe:
     environments:
@@ -92,7 +97,7 @@ spec:
 
     # Runtime worker secrets, pushed by the secrets-live step from the
     # values orun resolves for the optionalSecretEnv references below.
-    runtimeSecrets: "SECRET_ENCRYPTION_KEY"
+    runtimeSecrets: "SECRET_ENCRYPTION_KEY,VAULT_KEK_V1"
     turboFilter: "@saas/config-worker"
     wranglerConfig: wrangler.jsonc
     wranglerTemplate: wrangler.template.jsonc
