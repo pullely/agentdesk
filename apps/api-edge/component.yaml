@@ -41,6 +41,7 @@ spec:
     - component: projects-worker
     - component: events-worker
     - component: config-worker
+    - component: bots-worker
     - component: webhooks-worker
     - component: billing-worker
     - component: integrations-worker

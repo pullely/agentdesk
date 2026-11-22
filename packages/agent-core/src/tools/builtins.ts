@@ -8,17 +8,7 @@ import { untrusted } from "../prompt";
 // the ones it is granted, and the OPA policy still applies upstream's safety
 // rules to bash and the file tools.
 
-export const BUILTIN_TOOL_NAMES = ["getWeather", "throwDice", "searchWeb", "bash", "readFile", "writeFile"] as const;
-export type BuiltinToolName = (typeof BUILTIN_TOOL_NAMES)[number];
-
-export const BUILTIN_TOOL_DESCRIPTIONS: Record<BuiltinToolName, string> = {
-  getWeather: "Get the current weather for a city (Open-Meteo).",
-  throwDice: "Roll a six-sided die.",
-  searchWeb: "Search the web with Exa (needs the org's Exa key).",
-  bash: "Run one simple shell command in an in-memory sandbox (no network, no host access).",
-  readFile: "Read a file from the in-memory sandbox.",
-  writeFile: "Write a file in the in-memory sandbox (denied by policy: bots are read-only).",
-};
+export { BUILTIN_TOOL_NAMES, BUILTIN_TOOL_DESCRIPTIONS, type BuiltinToolName } from "../refs";
 
 export type SearchWeb = (
   query: string,

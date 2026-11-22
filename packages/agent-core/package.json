@@ -10,7 +10,8 @@
     "./slack": "./src/slack.ts",
     "./prompt": "./src/prompt.ts",
     "./ssrf": "./src/ssrf.ts",
-    "./verify": "./src/verify.ts"
+    "./verify": "./src/verify.ts",
+    "./refs": "./src/refs.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",

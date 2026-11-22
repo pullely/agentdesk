@@ -346,6 +346,13 @@ export interface FinishRunInput {
 
 export function createAgentsRepository(db: SqlExecutor) {
   return {
+    // ── projects (the baseline's; a bot is a project) ──────
+    async projectInOrg(orgId: string, projectId: string): Promise<{ id: string; name: string; slug: string } | null> {
+      const { rows } = await db.execute(`SELECT id, name, slug FROM projects_projects WHERE org_id = $1 AND id = $2 AND status = 'active'`, [orgId, projectId]);
+      const r = rows[0];
+      return r ? { id: String(r.id), name: String(r.name), slug: String(r.slug) } : null;
+    },
+
     // ── vault rows ─────────────────────────────────────────
     async getOrgKey(orgId: string): Promise<OrgKeyRow | null> {
       const { rows } = await db.execute(`SELECT org_id, dek_wrapped, dek_iv, kek_version FROM vault_org_keys WHERE org_id = $1`, [orgId]);

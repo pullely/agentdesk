@@ -80,6 +80,10 @@
           "service": "agentdesk-config-worker-stage"
         },
         {
+          "binding": "BOTS_WORKER",
+          "service": "agentdesk-bots-worker-stage"
+        },
+        {
           "binding": "WEBHOOKS_WORKER",
           "service": "agentdesk-webhooks-worker-stage"
         },
@@ -148,6 +152,10 @@
         {
           "binding": "CONFIG_WORKER",
           "service": "agentdesk-config-worker-prod"
+        },
+        {
+          "binding": "BOTS_WORKER",
+          "service": "agentdesk-bots-worker-prod"
         },
         {
           "binding": "WEBHOOKS_WORKER",
