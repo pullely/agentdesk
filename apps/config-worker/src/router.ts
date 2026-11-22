@@ -12,6 +12,7 @@ import { handleCreateSecret } from "./handlers/create-secret.js";
 import { handleRotateSecret } from "./handlers/rotate-secret.js";
 import { handleRevokeSecret } from "./handlers/revoke-secret.js";
 import { errorResponse, notFound, methodNotAllowed } from "./http.js";
+import { handleModelKeys, isModelKeysRoute } from "./handlers/model-keys.js";
 import { generateRequestId, parseOrgPublicId, parseProjectPublicId, parseEnvironmentPublicId, parseSettingPublicId, parseFeatureFlagPublicId, parseSecretMetadataPublicId } from "./ids.js";
 
 const REQUEST_ID_RE = /^[\w-]{1,128}$/;
@@ -293,6 +294,11 @@ export async function route(request: Request, env: Env): Promise<Response> {
   try {
     if (url.pathname === "/health" && request.method === "GET") {
       return handleHealth(env, requestId);
+    }
+
+    // agentdesk (AD-2): BYOK model keys in the vault.
+    if (isModelKeysRoute(url.pathname)) {
+      return handleModelKeys(request, env, requestId);
     }
 
     const matched = matchRoute(url.pathname);

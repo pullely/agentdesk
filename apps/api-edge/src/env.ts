@@ -5,6 +5,10 @@ export interface Env {
   PROJECTS_WORKER?: Fetcher;
   EVENTS_WORKER?: Fetcher;
   CONFIG_WORKER?: Fetcher;
+  // agentdesk (agentdesk-agent-bots)
+  BOTS_WORKER?: Fetcher;
+  CONNECTORS_WORKER?: Fetcher;
+  SLACK_GATEWAY_WORKER?: Fetcher;
   WEBHOOKS_WORKER?: Fetcher;
   METERING_WORKER?: Fetcher;
   BILLING_WORKER?: Fetcher;

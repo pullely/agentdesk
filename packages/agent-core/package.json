@@ -1,0 +1,41 @@
+{
+  "name": "@saas/agent-core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./model": "./src/model.ts",
+    "./policy": "./src/policy/load.ts",
+    "./slack": "./src/slack.ts",
+    "./prompt": "./src/prompt.ts",
+    "./ssrf": "./src/ssrf.ts",
+    "./verify": "./src/verify.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "policy:build": "opa build -t wasm -e agent/call/decision -o policies/bundle.tar.gz policies/decision.rego && tar -xzf policies/bundle.tar.gz -C policies /policy.wasm && rm policies/bundle.tar.gz",
+    "policy:test": "opa test policies/"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "4.0.107",
+    "@ai-sdk/openai": "4.0.122",
+    "@ai-sdk/policy-opa": "1.0.179",
+    "@ai-sdk/provider": "4.0.39",
+    "@open-policy-agent/opa-wasm": "1.10.0",
+    "ai": "7.0.179",
+    "bash-tool": "1.3.17",
+    "exa-js": "1.10.3",
+    "just-bash": "3.0.1",
+    "workers-ai-provider": "4.0.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261006.1",
+    "@saas/eslint-config": "workspace:*",
+    "@saas/tsconfig": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tooling/tsconfig/base.json",
+  "compilerOptions": {
+    "types": ["jest", "node"],
+    "lib": ["ES2022", "DOM"],
+    "allowSyntheticDefaultImports": true,
+    "composite": false,
+    "incremental": false,
+    "declaration": false,
+    "declarationMap": false,
+    "baseUrl": ".",
+    "paths": {
+      "@saas/agent-core": ["../../packages/agent-core/src/index.ts"],
+      "@saas/agent-core/*": ["../../packages/agent-core/src/*.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "../../packages/agent-core/src/wasm.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}

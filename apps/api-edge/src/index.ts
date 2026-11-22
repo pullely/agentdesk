@@ -1,3 +1,4 @@
+import { handleAgentsRoute, isAgentsRoute } from "./agents-facade.js";
 import { createD1Adapter } from "@saas/db/d1";
 import type { HealthStatus } from "@saas/contracts/health";
 import type { Env } from "./env";
@@ -48,6 +49,9 @@ export default {
       response = await handleAuthRoute(request, env, requestId, url.pathname);
     } else if (isAuditRoute(url.pathname)) {
       response = await handleAuditRoute(request, env, requestId, url.pathname);
+    } else if (isAgentsRoute(url.pathname)) {
+      // agentdesk: bots, connectors, Slack connections, model keys.
+      response = await handleAgentsRoute(request, env, requestId, url.pathname);
     } else if (isConfigRoute(url.pathname)) {
       response = await handleConfigRoute(request, env, requestId, url.pathname);
     } else if (isIntegrationsIngressRoute(url.pathname)) {

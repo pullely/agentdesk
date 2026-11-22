@@ -57,6 +57,11 @@ const ORG_ROLE_PERMISSIONS: Record<OrganizationRole, readonly string[]> = {
     "organization.integration.manage",
     "organization.integration.token.issue",
     "project.repo_link.write",
+    "bot.config.write",
+    "bot.publish",
+    "connector.manage",
+    "provider_key.manage",
+    "run.read",
   ],
   admin: [
     "organization.read",
@@ -98,6 +103,11 @@ const ORG_ROLE_PERMISSIONS: Record<OrganizationRole, readonly string[]> = {
     "organization.integration.manage",
     "organization.integration.token.issue",
     "project.repo_link.write",
+    "bot.config.write",
+    "bot.publish",
+    "connector.manage",
+    "provider_key.manage",
+    "run.read",
   ],
   builder: [
     "organization.read",
@@ -114,6 +124,8 @@ const ORG_ROLE_PERMISSIONS: Record<OrganizationRole, readonly string[]> = {
     "project.webhook.read",
     "organization.metering.read",
     "organization.integration.read",
+    "bot.config.write",
+    "run.read",
   ],
   viewer: [
     "organization.read",
@@ -126,6 +138,7 @@ const ORG_ROLE_PERMISSIONS: Record<OrganizationRole, readonly string[]> = {
     "project.webhook.read",
     "organization.metering.read",
     "organization.integration.read",
+    "run.read",
   ],
   billing_admin: [
     "organization.read",
@@ -151,6 +164,9 @@ const PROJECT_ROLE_PERMISSIONS: Record<ProjectRole, readonly string[]> = {
     "project.config.write",
     "project.webhook.read",
     "project.webhook.write",
+    "bot.config.write",
+    "bot.publish",
+    "run.read",
   ],
   project_builder: [
     "project.read",
@@ -160,12 +176,15 @@ const PROJECT_ROLE_PERMISSIONS: Record<ProjectRole, readonly string[]> = {
     "environment.update",
     "project.config.read",
     "project.webhook.read",
+    "bot.config.write",
+    "run.read",
   ],
   project_viewer: [
     "project.read",
     "environment.read",
     "project.config.read",
     "project.webhook.read",
+    "run.read",
   ],
 };
 
@@ -194,6 +213,11 @@ const PROJECT_SCOPED_ACTIONS: ReadonlySet<string> = new Set([
   "environment.delete",
   "project.config.read",
   "project.config.write",
+  // agentdesk (AD-2): a bot is a project, so its config, publishing and runs
+  // are always asked about one project.
+  "bot.config.write",
+  "bot.publish",
+  "run.read",
 ]);
 
 // Actions that project roles can authorize when a projectId narrows the request.
@@ -247,6 +271,12 @@ const ALL_KNOWN_ACTIONS: ReadonlySet<string> = new Set([
   "organization.integration.manage",
   "organization.integration.token.issue",
   "project.repo_link.write",
+  // agentdesk (AD-2)
+  "bot.config.write",
+  "bot.publish",
+  "connector.manage",
+  "provider_key.manage",
+  "run.read",
 ]);
 
 function isOrgRole(role: string): role is OrganizationRole {

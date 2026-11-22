@@ -26,10 +26,13 @@ describe("Integrations Migration Verification", () => {
     );
   });
 
-  it("orders the integrations migrations at the manifest tail", () => {
+  it("orders the integrations migrations together, after every earlier one", () => {
     const ids = manifest.migrations.map((m) => m.id);
-    expect(ids.indexOf("180_integrations_foundation")).toBe(ids.length - 2);
-    expect(ids.indexOf("190_integrations_delivery_attribution")).toBe(ids.length - 1);
+    const i = ids.indexOf("180_integrations_foundation");
+    expect(i).toBeGreaterThan(0);
+    expect(ids.indexOf("190_integrations_delivery_attribution")).toBe(i + 1);
+    // Later bounded contexts (agentdesk's 200_agents_foundation) follow them.
+    expect(ids.slice(i + 2).every((id) => id > "190")).toBe(true);
   });
 
   it("manifest checksums match the on-disk up.sql files", () => {
