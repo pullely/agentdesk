@@ -1,0 +1,19 @@
+agentdesk
+Copyright (c) 2026 Sourceplane Technologies Private Limited
+
+This product includes software derived from the following projects:
+
+* AI SDK Slackbot — https://github.com/vercel-labs/ai-sdk-slackbot
+  Licensed under the MIT License (declared in that repository's README).
+  The agent loop, the Slack request handling and the tool definitions in
+  packages/agent-core and apps/agent-runtime-worker derive from it.
+
+* ai-slackbot (tag baseline-v3) — https://github.com/sourceplane/ai-slackbot
+  Sourceplane's Cloudflare Workers port of the above: the WebCrypto Slack
+  signature check, X-Slack-No-Retry handling, the Workers AI model default
+  and the OPA/Rego policy compiled to WebAssembly.
+
+* cirrus-baseline (tag baseline-v29) — https://github.com/sourceplane/cirrus-baseline
+  The multi-tenant SaaS this repository was bootstrapped from.
+
+See LICENSE for the terms.
