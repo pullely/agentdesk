@@ -13,6 +13,11 @@ type Target = "CONFIG_WORKER" | "BOTS_WORKER" | "CONNECTORS_WORKER" | "SLACK_GAT
 
 const ROUTES: [RegExp, Target][] = [
   [/^\/v1\/organizations\/[^/]+\/model-keys(\/[^/]+(\/verify)?)?$/, "CONFIG_WORKER"],
+  // bots-worker (AD-3): a bot per project, its config, grants, playground, runs.
+  [/^\/v1\/organizations\/[^/]+\/bots$/, "BOTS_WORKER"],
+  [/^\/v1\/organizations\/[^/]+\/projects\/[^/]+\/bot(\/(versions|draft|publish|playground))?$/, "BOTS_WORKER"],
+  [/^\/v1\/organizations\/[^/]+\/projects\/[^/]+\/(grants|runs)$/, "BOTS_WORKER"],
+  [/^\/v1\/organizations\/[^/]+\/runs\/[^/]+$/, "BOTS_WORKER"],
 ];
 
 const FORWARDED_HEADERS = ["content-type", "traceparent", "idempotency-key"];

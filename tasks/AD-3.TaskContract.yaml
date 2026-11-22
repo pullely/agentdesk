@@ -1,0 +1,23 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-3
+  title: "AD1: bots-worker — a bot per project"
+spec:
+  goal: "bots-worker serves a bot's profile, its versioned config (one draft, one published, immutable once published), its tool grants, publish, the playground relay and the runs, behind api-edge on stage and prod."
+  affects:
+    - "apps/bots-worker/**"
+    - "tests/bots-worker/**"
+    - "apps/api-edge/**"
+    - "packages/agent-core/**"
+    - "packages/worker-kit/**"
+    - "packages/db/src/agents/**"
+    - "pnpm-lock.yaml"
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "tasks/**"
+  doneWhen:
+    - "agentdesk-bots-worker-{stage,prod} are deployed and bound into api-edge as BOTS_WORKER"
+    - "PUT …/projects/{p}/bot/draft then POST …/bot/publish through api-edge publishes version 1; a second draft is version 2 and the published row is unchanged"
+    - "a member without bot.publish gets 404 on publish; another org's project is 404"
+    - "tests/bots-worker green"
+  gates: []

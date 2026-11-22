@@ -9,37 +9,9 @@ import { createWorkersAI } from "workers-ai-provider";
 // environment's Cloudflare AI Gateway (logs, caching, per-org rate limits),
 // tagged with the org, project and run.
 //
-// The Workers AI default is the one ai-slackbot proved on Workers.
-export const DEFAULT_MODEL_REF = "workers-ai:@cf/moonshotai/kimi-k2.6";
+import { parseModelRef, type Provider } from "./refs";
 
-// Workers AI models allowed as a bot's model: the ones that call tools well.
-export const WORKERS_AI_MODELS = [
-  "@cf/moonshotai/kimi-k2.6",
-  "@cf/meta/llama-4-scout-17b-16e-instruct",
-  "@cf/qwen/qwen3-30b-a3b-fp8",
-  "@cf/openai/gpt-oss-120b",
-] as const;
-
-export type Provider = "workers-ai" | "openai" | "anthropic" | "openai-compatible";
-
-export interface ModelRef {
-  provider: Provider;
-  id: string;
-}
-
-export function parseModelRef(ref: string | null | undefined): ModelRef {
-  const value = ref && ref.includes(":") ? ref : DEFAULT_MODEL_REF;
-  const i = value.indexOf(":");
-  const provider = value.slice(0, i) as Provider;
-  const id = value.slice(i + 1);
-  if (!["workers-ai", "openai", "anthropic", "openai-compatible"].includes(provider) || !id) {
-    throw new Error(`unsupported model ref: ${value}`);
-  }
-  if (provider === "workers-ai" && !(WORKERS_AI_MODELS as readonly string[]).includes(id)) {
-    throw new Error(`Workers AI model not allowed: ${id}`);
-  }
-  return { provider, id };
-}
+export { DEFAULT_MODEL_REF, WORKERS_AI_MODELS, parseModelRef, type ModelRef, type Provider } from "./refs";
 
 export interface GatewayConfig {
   /** Cloudflare account id the gateway lives in. */

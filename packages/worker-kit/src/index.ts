@@ -2,6 +2,8 @@
 // (bots, slack-gateway, agent-runtime, connectors): the baseline's envelope,
 // actor headers set by api-edge, public ids, and one authorize() that runs
 // the membership + policy check every baseline Worker runs, failing closed.
+import type { SqlExecutor } from "@saas/db/d1";
+import { createEventsRepository } from "@saas/db/events";
 import { hexToUuid, uuidToHex } from "@saas/db/ids";
 
 export type { Fetcher } from "@cloudflare/workers-types";
@@ -141,4 +143,50 @@ export async function dispatch(
     if (method === request.method || (method === "GET" && request.method === "HEAD")) return handler(m);
   }
   return pathMatched ? fail("unsupported", "Method not allowed", 405, requestId) : fail("not_found", `Route not found: ${pathname}`, 404, requestId);
+}
+
+// ── audit ──────────────────────────────────────────────────
+
+/**
+ * Append an audit event the way baseline Workers do (events-worker has no
+ * write route; the event and its audit entry go to the shared D1 directly).
+ * Best-effort: the write it describes already happened. Payloads must be
+ * redaction-safe — names and counts, never values.
+ */
+export async function recordAudit(
+  db: SqlExecutor,
+  input: {
+    actor: Actor | { subjectId: string; subjectType: string };
+    requestId: string;
+    orgId: string;
+    projectId?: string | null;
+    type: string;
+    source: string;
+    subjectKind: string;
+    subjectId: string;
+    payload: Record<string, unknown>;
+  },
+): Promise<void> {
+  try {
+    await createEventsRepository(db).appendEventWithAudit({
+      event: {
+        id: crypto.randomUUID(),
+        type: input.type,
+        version: 1,
+        source: input.source,
+        occurredAt: new Date(),
+        actorType: input.actor.subjectType,
+        actorId: input.actor.subjectId,
+        orgId: input.orgId,
+        projectId: input.projectId ?? null,
+        subjectKind: input.subjectKind,
+        subjectId: input.subjectId,
+        requestId: input.requestId,
+        payload: input.payload,
+      },
+      audit: { id: crypto.randomUUID(), category: "agents", description: input.type, projectId: input.projectId ?? null },
+    });
+  } catch {
+    // best-effort
+  }
 }

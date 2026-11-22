@@ -3,6 +3,7 @@
 // vercel-labs/ai-sdk-slackbot); see NOTICE.
 export * from "./agent";
 export * from "./model";
+export { BUILTIN_SERVER_ID, mcpToolName, SERVER_NAME_RE } from "./refs";
 export * from "./prompt";
 export * from "./slack";
 export * from "./ssrf";
