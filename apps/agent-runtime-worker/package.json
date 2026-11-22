@@ -1,0 +1,28 @@
+{
+  "name": "@saas/agent-runtime-worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "wire:fixture": "node ../../tooling/wire/render.mjs --template wrangler.template.jsonc --out wrangler.jsonc --map wiring.fixture.json"
+  },
+  "dependencies": {
+    "@saas/agent-core": "workspace:*",
+    "@saas/contracts": "workspace:*",
+    "@saas/db": "workspace:*",
+    "@saas/worker-kit": "workspace:*",
+    "ai": "7.0.179",
+    "bash-tool": "1.3.17",
+    "just-bash": "3.0.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261006.1",
+    "@saas/eslint-config": "workspace:*",
+    "@saas/tsconfig": "workspace:*",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.14.0"
+  }
+}

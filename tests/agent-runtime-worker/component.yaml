@@ -1,0 +1,29 @@
+apiVersion: sourceplane.io/v1
+kind: Component
+metadata:
+  name: agent-runtime-worker-tests
+  description: "agent-runtime-worker's tests: the playground and the ThreadAgent end to end under Node (real AI SDK, workers-ai-provider over a fake AI binding, compiled OPA policy, just-bash, SQLite D1)"
+spec:
+  type: turbo-package
+  lifecycle: production
+  owner: platform
+  docs:
+    overview: docs/overview.md
+    pages:
+      - { path: docs/architecture.md, role: architecture, title: Architecture }
+      - { path: docs/runbook.md, role: runbook, title: Runbook }
+  domain: agentdesk-agents
+  subscribe:
+    environments:
+      - name: dev
+        profile: quick-check
+  parameters:
+    nodeVersion: "22"
+    pnpmVersion: "10.12.1"
+    buildCommand: pnpm exec turbo run build --filter=./
+    typecheckCommand: pnpm exec turbo run typecheck --filter=./
+    preBuildCommand: pnpm exec turbo run test --filter=./
+  labels:
+    team: platform
+    layer: test
+    surface: agents
