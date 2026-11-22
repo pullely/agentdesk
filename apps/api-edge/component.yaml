@@ -42,6 +42,7 @@ spec:
     - component: events-worker
     - component: config-worker
     - component: bots-worker
+    - component: slack-gateway-worker
     - component: webhooks-worker
     - component: billing-worker
     - component: integrations-worker
