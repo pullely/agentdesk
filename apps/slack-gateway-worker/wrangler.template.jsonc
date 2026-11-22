@@ -1,0 +1,62 @@
+// Rendered to wrangler.jsonc by tooling/wire/render.mjs (BF6 deploy-time wiring).
+// PUBLIC: workers_dev is ON — Slack calls /slack/events, /slack/commands,
+// /slack/interactivity and /slack/oauth/callback here directly, every one
+// verified by its app's signing secret before anything is parsed.
+// Runtime secrets (component.yaml runtimeSecrets): VAULT_KEK_V1,
+// OAUTH_STATE_SECRET, and — once the shared app exists in Slack —
+// SLACK_APP_ID, SLACK_SIGNING_SECRET, SLACK_CLIENT_ID, SLACK_CLIENT_SECRET.
+{
+  "name": "agentdesk-slack-gateway-worker",
+  "compatibility_date": "2025-05-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "src/index.ts",
+  "minify": false,
+  "vars": {
+    "ENVIRONMENT": "local"
+  },
+  "env": {
+    "dev": {
+      "vars": {
+        "ENVIRONMENT": "dev"
+      }
+    },
+    "stage": {
+      "workers_dev": true,
+      "vars": {
+        "ENVIRONMENT": "stage",
+        "PUBLIC_HOST": "agentdesk-slack-gateway-worker-stage.openproduct.workers.dev"
+      },
+      "d1_databases": [
+        {
+          "binding": "PLATFORM_DB",
+          "database_name": "agentdesk-stage",
+          "database_id": "@@wiring(cloudflare-d1/stage:d1_database_id)@@"
+        }
+      ],
+      "services": [
+        { "binding": "MEMBERSHIP_WORKER", "service": "agentdesk-membership-worker-stage" },
+        { "binding": "POLICY_WORKER", "service": "agentdesk-policy-worker-stage" },
+        { "binding": "AGENT_RUNTIME", "service": "agentdesk-agent-runtime-worker-stage" }
+      ]
+    },
+    "prod": {
+      "workers_dev": true,
+      "vars": {
+        "ENVIRONMENT": "prod",
+        "PUBLIC_HOST": "agentdesk-slack-gateway-worker-prod.openproduct.workers.dev"
+      },
+      "d1_databases": [
+        {
+          "binding": "PLATFORM_DB",
+          "database_name": "agentdesk-prod",
+          "database_id": "@@wiring(cloudflare-d1/prod:d1_database_id)@@"
+        }
+      ],
+      "services": [
+        { "binding": "MEMBERSHIP_WORKER", "service": "agentdesk-membership-worker-prod" },
+        { "binding": "POLICY_WORKER", "service": "agentdesk-policy-worker-prod" },
+        { "binding": "AGENT_RUNTIME", "service": "agentdesk-agent-runtime-worker-prod" }
+      ]
+    }
+  }
+}

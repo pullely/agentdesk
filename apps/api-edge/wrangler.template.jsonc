@@ -84,6 +84,10 @@
           "service": "agentdesk-bots-worker-stage"
         },
         {
+          "binding": "SLACK_GATEWAY_WORKER",
+          "service": "agentdesk-slack-gateway-worker-stage"
+        },
+        {
           "binding": "WEBHOOKS_WORKER",
           "service": "agentdesk-webhooks-worker-stage"
         },
@@ -156,6 +160,10 @@
         {
           "binding": "BOTS_WORKER",
           "service": "agentdesk-bots-worker-prod"
+        },
+        {
+          "binding": "SLACK_GATEWAY_WORKER",
+          "service": "agentdesk-slack-gateway-worker-prod"
         },
         {
           "binding": "WEBHOOKS_WORKER",

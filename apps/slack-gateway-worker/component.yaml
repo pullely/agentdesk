@@ -1,0 +1,125 @@
+apiVersion: sourceplane.io/v1
+kind: Component
+metadata:
+  name: slack-gateway-worker
+  description: "agentdesk Slack gateway: public Events API / commands / interactivity ingress, per-app signature verification, installations, OAuth install and channel bindings"
+spec:
+  type: cloudflare-worker-turbo
+  lifecycle: production
+  owner: platform
+  # Its pages, attached to it in the workspace's catalog: what the Docs
+  # library shows for it, and what the catalog's docs and runbook checks read.
+  # Generated from what this manifest declares
+  # (tooling/catalog/gen-component-docs.mjs).
+  docs:
+    overview: docs/overview.md
+    pages:
+      - { path: docs/architecture.md, role: architecture, title: Architecture }
+      - { path: docs/runbook.md, role: runbook, title: Runbook }
+  domain: agentdesk-agents
+  path: apps/slack-gateway-worker
+  dependsOn:
+    # ENFORCED ON MAIN (one-landing bootstrap): the data plane before anything
+    # that reads its wiring, and policy-worker before anything that holds a
+    # service binding — its pre-deploy creates a placeholder for every binding
+    # target that does not exist yet (tooling/deploy/fleet-stubs.mjs), so each
+    # worker's first deploy can carry its full bindings. Peer edges stay
+    # advisory: they are runtime calls, not deploy order. A pull request deploys
+    # nothing, so nothing on one waits.
+    - component: membership-worker
+    - component: policy-worker
+      mode: enforced
+      modeRules:
+        - mode: advisory
+          when:
+            triggerRef: github-pull-request
+    - component: cloudflare-d1
+      mode: enforced
+      modeRules:
+        - mode: advisory
+          when:
+            triggerRef: github-pull-request
+  # BF6 wiring documents from orun secrets (SEC-JOB): lease-published by
+  # the infra components; wire-live renders the wrangler template from
+  # these instead of Secrets Manager documents.
+  secretEnv:
+    WIRING_CLOUDFLARE_D1_STAGE: "secret://ws_THJCCFJH/agentdesk/stage/WIRING_CLOUDFLARE_D1"
+    WIRING_CLOUDFLARE_D1_PROD: "secret://ws_THJCCFJH/agentdesk/prod/WIRING_CLOUDFLARE_D1"
+
+  optionalSecretEnv:
+    VAULT_KEK_V1: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/VAULT_KEK_V1"
+    # The shared Slack app — set once a person has created it (WAITING.md).
+    SLACK_APP_ID: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/SLACK_APP_ID"
+    SLACK_SIGNING_SECRET: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/SLACK_SIGNING_SECRET"
+    SLACK_CLIENT_ID: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/SLACK_CLIENT_ID"
+    SLACK_CLIENT_SECRET: "secret://ws_THJCCFJH/agentdesk/{{ .environment }}/SLACK_CLIENT_SECRET"
+
+  subscribe:
+    environments:
+      - name: dev
+        profile: verify
+      - name: stage
+        # Peer edges are runtime calls, not deploy order: every binding target
+        # exists before this deploys (policy-worker's pre-deploy places one,
+        # tooling/deploy/fleet-stubs.mjs), so nothing in this lane waits on a
+        # peer. The edges marked `mode: enforced` above still order.
+        dependencyMode: advisory
+        profile: verify
+        profileRules:
+          - profile: deploy
+            when:
+              triggerRef: github-push-main
+      - name: prod
+        # Peer edges are runtime calls, not deploy order: every binding target
+        # exists before this deploys (policy-worker's pre-deploy places one,
+        # tooling/deploy/fleet-stubs.mjs), so nothing in this lane waits on a
+        # peer. The edges marked `mode: enforced` above still order.
+        dependencyMode: advisory
+        profile: verify
+        profileRules:
+          - profile: deploy
+            when:
+              triggerRef: github-push-main
+  parameters:
+    nodeVersion: "22"
+    pnpmVersion: "10.12.1"
+    workspaceDir: ../..
+    appDir: .
+    # BF6b: deploy-time wiring — wrangler.jsonc is rendered, never committed.
+    # Verify lanes render from wiring.fixture.json (offline); deploy lanes
+    # resolve real IDs from the Secrets Manager wiring manifest (BF5).
+    orgName: sourceplane
+    owner: sourceplane
+    repo: agentdesk
+
+    runtimeSecrets: "VAULT_KEK_V1,SLACK_APP_ID,SLACK_SIGNING_SECRET,SLACK_CLIENT_ID,SLACK_CLIENT_SECRET"
+    turboFilter: "@saas/slack-gateway-worker"
+    wranglerConfig: wrangler.jsonc
+    wranglerTemplate: wrangler.template.jsonc
+    wiringComponents: "cloudflare-d1"
+    wiringEnvs: "stage,prod"
+    wiringFixture: wiring.fixture.json
+    installCommand: pnpm install --frozen-lockfile
+    buildCommand: pnpm exec turbo run build --filter=@saas/slack-gateway-worker
+    typecheckCommand: pnpm exec turbo run typecheck --filter=@saas/slack-gateway-worker
+    dryRunCommand: pnpm exec wrangler deploy --dry-run --config wrangler.jsonc --env prod
+    deployCommand: pnpm exec wrangler deploy --config wrangler.jsonc --env prod
+    # Binding placeholders (agent-runtime) and the install flow's state key:
+    # generated once per environment if absent, pushed straight to Cloudflare,
+    # never logged — only this Worker reads it.
+    preDeployCommand: |
+      node ../../tooling/deploy/fleet-stubs.mjs --root ../..
+      for e in stage prod; do
+        if ! pnpm exec wrangler secret list --config wrangler.jsonc --env "$e" 2>/dev/null | grep -q '"OAUTH_STATE_SECRET"'; then
+          echo "Provisioning OAUTH_STATE_SECRET for env $e"
+          openssl rand -hex 32 | pnpm exec wrangler secret put OAUTH_STATE_SECRET --config wrangler.jsonc --env "$e"
+        fi
+      done
+    migrationCommand: "echo 'No migrations configured.'"
+    smokeCommand: "echo 'No smoke test configured.'"
+  labels:
+    team: platform
+    layer: runtime
+    surface: slack
+    runtime: cloudflare
+

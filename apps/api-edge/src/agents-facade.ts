@@ -18,6 +18,9 @@ const ROUTES: [RegExp, Target][] = [
   [/^\/v1\/organizations\/[^/]+\/projects\/[^/]+\/bot(\/(versions|draft|publish|playground))?$/, "BOTS_WORKER"],
   [/^\/v1\/organizations\/[^/]+\/projects\/[^/]+\/(grants|runs)$/, "BOTS_WORKER"],
   [/^\/v1\/organizations\/[^/]+\/runs\/[^/]+$/, "BOTS_WORKER"],
+  // slack-gateway-worker (AD-5): installations, the install URL, bindings.
+  [/^\/v1\/organizations\/[^/]+\/slack\/(installations(\/[^/]+)?|install-url)$/, "SLACK_GATEWAY_WORKER"],
+  [/^\/v1\/organizations\/[^/]+\/projects\/[^/]+\/slack\/bindings$/, "SLACK_GATEWAY_WORKER"],
 ];
 
 const FORWARDED_HEADERS = ["content-type", "traceparent", "idempotency-key"];

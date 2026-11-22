@@ -1,0 +1,21 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-5
+  title: "AD1: slack-gateway-worker — the shared app's verified ingress"
+spec:
+  goal: "slack-gateway-worker is public on stage and prod: it verifies every Slack request with its app's signing secret, acks within 3 s, routes app mentions, DMs, channel messages and /agent commands to the bound bot's ThreadAgent, installs the shared app by OAuth, registers an app directly, handles uninstall, and serves the bindings API through api-edge."
+  affects:
+    - "apps/slack-gateway-worker/**"
+    - "tests/slack-gateway-worker/**"
+    - "apps/api-edge/**"
+    - "WAITING.md"
+    - "pnpm-lock.yaml"
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "tasks/**"
+  doneWhen:
+    - "GET https://agentdesk-slack-gateway-worker-{stage,prod}.openproduct.workers.dev/health answers 200 naming the environment"
+    - "a forged event to /slack/events is refused 401; a correctly signed event for a registered installation is acked 200 and produces a run for the bound bot"
+    - "GET /v1/organizations/{org}/slack/installations through api-edge reaches the gateway (401 unauthenticated without a session)"
+    - "tests/slack-gateway-worker green"
+  gates: []
