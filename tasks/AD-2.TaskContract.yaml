@@ -1,0 +1,32 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-2
+  title: "AD1: foundations — agents tables, vault, permissions, wire types, the ported agent core"
+spec:
+  goal: "Every table, secret store, permission and shared module the four agent Workers read is on main and live: migration 200_agents_foundation applied on stage and prod, the vault storing BYOK model keys through config-worker, the five bot permissions in policy-worker, the agents wire types, and @saas/agent-core (the ported ai-slackbot loop, the OPA grant policy, the model router) tested."
+  affects:
+    - "packages/db/**"
+    - "packages/agent-core/**"
+    - "packages/worker-kit/**"
+    - "packages/contracts/**"
+    - "packages/policy-engine/**"
+    - "apps/config-worker/**"
+    - "apps/api-edge/**"
+    - "apps/identity-worker/wrangler.template.jsonc"
+    - "apps/membership-worker/wrangler.template.jsonc"
+    - "apps/web-console-next/next.config.mjs"
+    - "tests/agent-core/**"
+    - "tests/db/**"
+    - "tests/config-worker/**"
+    - "tests/policy-engine/**"
+    - "pnpm-lock.yaml"
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "tasks/**"
+  doneWhen:
+    - "migration 200_agents_foundation is applied on stage and prod D1"
+    - "POST /v1/organizations/{org}/model-keys verifies a key, stores it encrypted, and answers with last4 only; GET lists keys without values"
+    - "policy-engine knows bot.config.write, bot.publish, connector.manage, provider_key.manage and run.read, deny by default"
+    - "tests/agent-core runs the compiled policy and the loop against a mock model green; tests/db runs the agents repository and vault on SQLite green"
+    - "api-edge serves orgs and projects (Solo mode off)"
+  gates: []
