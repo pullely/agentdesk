@@ -13,7 +13,7 @@
   // product this file belongs to. The rebrand rewrites these with the rest.
   "vars": {
     "CONSOLE_PRODUCT_NAME": "agentdesk",
-    "CONSOLE_WORKERS_DEV_SUBDOMAIN": "rahulvarghesepullely",
+    "CONSOLE_WORKERS_DEV_SUBDOMAIN": "openproduct",
     "CONSOLE_API_WORKER_PREFIX": "agentdesk-api-edge",
     "CONSOLE_STORAGE_PREFIX": "agentdesk.next",
     "CONSOLE_SALES_EMAIL": "sales@sourceplane.ai"

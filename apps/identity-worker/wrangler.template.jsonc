@@ -35,7 +35,7 @@
         "GITHUB_OAUTH_CLIENT_ID": "",
         "GOOGLE_OAUTH_CLIENT_ID": "",
         "OAUTH_REDIRECT_BASE_URL": "",
-        "OAUTH_ALLOWED_CONSOLE_ORIGINS": "https://agentdesk-web-console-next-dev.rahulvarghesepullely.workers.dev",
+        "OAUTH_ALLOWED_CONSOLE_ORIGINS": "https://agentdesk-web-console-next-dev.openproduct.workers.dev",
         "SOLO_MODE": "true"
       }
     },
@@ -45,8 +45,8 @@
         "DEBUG_DELIVERY": "true",
         "GITHUB_OAUTH_CLIENT_ID": "Ov23liKBsjAqJJsmBavV",
         "GOOGLE_OAUTH_CLIENT_ID": "441163126775-7fabhvpbl9tsga921rklpdlde7mduq34.apps.googleusercontent.com",
-        "OAUTH_REDIRECT_BASE_URL": "https://agentdesk-api-edge-stage.rahulvarghesepullely.workers.dev",
-        "OAUTH_ALLOWED_CONSOLE_ORIGINS": "https://stage.agentdesk.example.com,https://agentdesk-web-console-next-stage.rahulvarghesepullely.workers.dev",
+        "OAUTH_REDIRECT_BASE_URL": "https://agentdesk-api-edge-stage.openproduct.workers.dev",
+        "OAUTH_ALLOWED_CONSOLE_ORIGINS": "https://stage.agentdesk.example.com,https://agentdesk-web-console-next-stage.openproduct.workers.dev",
         "SOLO_MODE": "true"
       },
       "d1_databases": [
@@ -77,8 +77,8 @@
         "DEBUG_DELIVERY": "false",
         "GITHUB_OAUTH_CLIENT_ID": "Ov23lilp2aoyeBDVU8Vc",
         "GOOGLE_OAUTH_CLIENT_ID": "441163126775-7fabhvpbl9tsga921rklpdlde7mduq34.apps.googleusercontent.com",
-        "OAUTH_REDIRECT_BASE_URL": "https://agentdesk-api-edge-prod.rahulvarghesepullely.workers.dev",
-        "OAUTH_ALLOWED_CONSOLE_ORIGINS": "https://prod.agentdesk.example.com,https://agentdesk-web-console-next-prod.rahulvarghesepullely.workers.dev",
+        "OAUTH_REDIRECT_BASE_URL": "https://agentdesk-api-edge-prod.openproduct.workers.dev",
+        "OAUTH_ALLOWED_CONSOLE_ORIGINS": "https://prod.agentdesk.example.com,https://agentdesk-web-console-next-prod.openproduct.workers.dev",
         "SOLO_MODE": "true"
       },
       "d1_databases": [

@@ -41,7 +41,7 @@ const BUILD_DEPLOY_ENV: string | undefined =
 export const DEFAULT_APP_CONFIG: AppConfig = {
   productName: "agentdesk",
   productDescription: "Next-gen control plane for your projects, environments, and entitlements.",
-  workersDevSubdomain: "rahulvarghesepullely",
+  workersDevSubdomain: "openproduct",
   apiWorkerPrefix: "agentdesk-api-edge",
   storagePrefix: "agentdesk.next",
   salesEmail: "sales@sourceplane.ai",

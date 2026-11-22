@@ -106,7 +106,7 @@ spec:
 
     # The account's workers.dev subdomain; exposed to the smoke step as
     # ${WORKERS_DEV_SUBDOMAIN} and used to build ${DEPLOYED_URL}.
-    workersDevSubdomain: rahulvarghesepullely
+    workersDevSubdomain: openproduct
 
     # No environmentBuildVar (saas-console-artifact CA2): the console learns its
     # environment at runtime — CONSOLE_DEPLOY_ENV if set, else the `-<env>` its

@@ -136,10 +136,10 @@ environments:
 
   stage:
     description: The fleet, the API edge and the console, deployed on every merge to main before prod.
-    url: https://agentdesk-web-console-next-stage.rahulvarghesepullely.workers.dev
+    url: https://agentdesk-web-console-next-stage.openproduct.workers.dev
     links:
-      - { title: API, url: https://agentdesk-api-edge-stage.rahulvarghesepullely.workers.dev }
-      - { title: Health, url: https://agentdesk-api-edge-stage.rahulvarghesepullely.workers.dev/health }
+      - { title: API, url: https://agentdesk-api-edge-stage.openproduct.workers.dev }
+      - { title: Health, url: https://agentdesk-api-edge-stage.openproduct.workers.dev/health }
     activation:
       triggerRefs:
         - github-pull-request
@@ -159,10 +159,10 @@ environments:
 
   prod:
     description: Where customers are. Deploys after stage converges on the same commit.
-    url: https://agentdesk-web-console-next-prod.rahulvarghesepullely.workers.dev
+    url: https://agentdesk-web-console-next-prod.openproduct.workers.dev
     links:
-      - { title: API, url: https://agentdesk-api-edge-prod.rahulvarghesepullely.workers.dev }
-      - { title: Health, url: https://agentdesk-api-edge-prod.rahulvarghesepullely.workers.dev/health }
+      - { title: API, url: https://agentdesk-api-edge-prod.openproduct.workers.dev }
+      - { title: Health, url: https://agentdesk-api-edge-prod.openproduct.workers.dev/health }
     activation:
       triggerRefs:
         - github-pull-request

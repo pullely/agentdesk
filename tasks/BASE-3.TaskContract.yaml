@@ -1,0 +1,23 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: BASE-3
+  title: "Point the product at the workers.dev subdomain it deployed to (openproduct)"
+spec:
+  goal: "Every place the bootstrap wrote the workers.dev subdomain names openproduct, the account the Cloudflare connection deployed the fleet into, so the console smoke and every derived URL answer."
+  affects:
+    - "apps/api-edge/src/app-config.ts"
+    - "apps/identity-worker/wrangler.template.jsonc"
+    - "apps/web-console-next/component.yaml"
+    - "apps/web-console-next/src/lib/app-config.ts"
+    - "apps/web-console-next/wrangler.jsonc"
+    - "intent.yaml"
+    - "packages/cli/src/brand.ts"
+    - "packages/sdk/README.md"
+    - "packages/sdk/src/transport.ts"
+    - "tests/web-console-next/src/app-config.test.ts"
+    - "tasks/BASE-3.TaskContract.yaml"
+  doneWhen:
+    - "git grep rahulvarghesepullely outside specs/ and .rebrand/ (the record of the inputs as given) finds nothing"
+    - "web-console-next verify-deploy passes its smoke on stage and prod after the merge"
+  gates: []

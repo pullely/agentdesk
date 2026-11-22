@@ -25,7 +25,7 @@ Then `pnpm install` from the repo root.
 import { Agentdesk } from "@saas/sdk";
 
 const client = new Agentdesk({
-  baseUrl: "https://agentdesk-api-edge-prod.rahulvarghesepullely.workers.dev",
+  baseUrl: "https://agentdesk-api-edge-prod.openproduct.workers.dev",
   auth: { kind: "bearer", token: process.env["AGENTDESK_TOKEN"]! },
 });
 
