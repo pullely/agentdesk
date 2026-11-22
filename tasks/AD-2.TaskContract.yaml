@@ -21,6 +21,7 @@ spec:
     - "tests/config-worker/**"
     - "tests/policy-engine/**"
     - "pnpm-lock.yaml"
+    - "package.json"
     - "specs/epics/agentdesk-agent-bots/**"
     - "tasks/**"
   doneWhen:

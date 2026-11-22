@@ -53,6 +53,6 @@
     "@open-policy-agent/opa-wasm": "1.10.0",
     "@saas/agent-core": "workspace:*",
     "ai": "7.0.179",
-    "zod": "4.4.3"
+    "zod": "4.6.7"
   }
 }

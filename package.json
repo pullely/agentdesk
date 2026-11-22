@@ -21,5 +21,14 @@
     "eslint": "^9.27.0",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "packageExtensions": {
+      "@hookform/resolvers@3": {
+        "peerDependencies": {
+          "zod": "^3.23.8"
+        }
+      }
+    }
   }
 }
