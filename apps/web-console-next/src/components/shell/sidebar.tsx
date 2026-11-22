@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Bot,
   FolderKanban,
   Boxes,
   KeyRound,
@@ -35,6 +36,7 @@ import { SidebarOrgSwitcher } from "./sidebar-org-switcher";
 import { SidebarFind } from "./sidebar-find";
 
 const ICONS: Record<string, LucideIcon> = {
+  Bot,
   Building2,
   FolderKanban,
   Boxes,

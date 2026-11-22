@@ -56,7 +56,9 @@ describe("buildNavSections", () => {
   it("adds the project section only when both slugs are present", () => {
     expect(buildNavSections({ orgSlug: "acme" }).find((s) => s.id === "project")).toBeUndefined();
     const project = buildNavSections({ orgSlug: "acme", projectSlug: "web" }).find((s) => s.id === "project")!;
-    expect(project.links[0]!.href).toBe("/orgs/acme/projects/web/environments");
+    // agentdesk: a project is one bot, so its Bot page leads.
+    expect(project.links[0]!.href).toBe("/orgs/acme/projects/web/bot");
+    expect(project.links[1]!.href).toBe("/orgs/acme/projects/web/environments");
   });
 });
 
@@ -80,6 +82,7 @@ describe("buildNavSections under the Solo (M0) profile", () => {
     expect(org.label).toBe("Org · acme");
     expect(org.links.map((l) => l.href)).toEqual([
       "/orgs/acme/projects",
+      "/orgs/acme/agents",
       "/orgs/acme/usage",
       "/orgs/acme/settings",
     ]);
