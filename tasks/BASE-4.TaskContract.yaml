@@ -1,0 +1,15 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: BASE-4
+  title: "The deployment record names the hosts the product answers on"
+spec:
+  goal: "ai/context/deployment.md lists the live openproduct.workers.dev URLs (answering), and .rebrand/values.json carries the subdomain the fleet deployed to, so a docs-flow refresh renders the same."
+  affects:
+    - "ai/context/deployment.md"
+    - ".rebrand/values.json"
+    - "tasks/BASE-4.TaskContract.yaml"
+  doneWhen:
+    - "deployment.md's four public URLs are *.openproduct.workers.dev and answer 200"
+    - ".rebrand/values.json subdomain is openproduct"
+  gates: []
