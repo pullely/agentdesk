@@ -1,0 +1,18 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-4
+  title: "AD1: agent-runtime-worker — a ThreadAgent per Slack thread"
+spec:
+  goal: "agent-runtime-worker is deployed on stage and prod: a ThreadAgent Durable Object per org:project:team:channel:thread_ts persists turns in a FIFO, pins the thread's config version, keeps thread memory with compaction, runs the ported ai-slackbot loop (OPA-gated, granted tools only, Workers AI or BYOK through AI Gateway), streams the reply into Slack, and records the run; the playground answers on a bot's draft config."
+  affects:
+    - "apps/agent-runtime-worker/**"
+    - "tests/agent-runtime-worker/**"
+    - "pnpm-lock.yaml"
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "tasks/**"
+  doneWhen:
+    - "agentdesk-agent-runtime-worker-{stage,prod} are deployed with the ThreadAgent class, the AI binding and the vault key"
+    - "POST …/projects/{p}/bot/playground through api-edge answers on the draft config and the run with its steps is listed under …/runs"
+    - "tests/agent-runtime-worker green: playground, policy allow/deny, failed BYOK run, ThreadAgent FIFO + dedupe + pinning + streaming + memory"
+  gates: []
