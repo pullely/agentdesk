@@ -31,7 +31,7 @@ the OPA/Rego→WASM tool gate are ported from
 
 | Field | Value |
 |-------|-------|
-| Status | Draft |
+| Status | In progress — AD0 shipped, AD1 landed (live verification waiting on WAITING.md) |
 | Cluster | **AD** (AD0–AD4) |
 | Owner(s) | `apps/bots-worker`, `apps/slack-gateway-worker`, `apps/agent-runtime-worker`, `apps/connectors-worker` (the resources) · `apps/config-worker` (the vault) · `apps/policy-worker` (the permissions) · `packages/db` (the tables) · `packages/contracts` + `packages/sdk` (the wire) · `apps/web-console-next` (the surface) |
 | Builds on | `cirrus-baseline baseline-v29` — identity, membership, projects/environments, policy, config, metering, billing (Polar), events, webhooks, api-edge, web-console-next |

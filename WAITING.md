@@ -5,6 +5,26 @@ checks for before it carries on.
 
 ## Open
 
+### Sign-in to agentdesk (owner)
+
+- **Why:** nobody can sign in yet. Magic-link email is sent by Cloudflare
+  Email Service from `no-reply@mail.agentdesk.example.com`, an unverified
+  placeholder domain, and no OAuth provider has credentials. Every console
+  page and authenticated API needs a session.
+- **Pick one (or both):**
+  1. **GitHub sign-in:** github.com → Settings → Developer settings → OAuth
+     Apps → New. Callback URL
+     `https://agentdesk-api-edge-stage.openproduct.workers.dev/v1/auth/oauth/github/callback`
+     (and `…-prod…` for a second app). Store `GITHUB_OAUTH_CLIENT_SECRET`
+     with `orun secrets set … --env stage` (value on stdin) and the client id
+     where `apps/identity-worker/wrangler.template.jsonc` reads it.
+  2. **Email:** a domain you own, onboarded to Cloudflare Email Service;
+     set `EMAIL_FROM_ADDRESS` in `apps/notifications-worker` to it.
+- **Unblock signal:** signing in to
+  `https://agentdesk-web-console-next-stage.openproduct.workers.dev` reaches
+  the org page; the agent then verifies the playground and runs end to end.
+
+
 ### Create the shared Slack app (owner)
 
 - **Why:** a Slack app is created by a person signed in to Slack. Until it
