@@ -1,0 +1,16 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-11
+  title: "AD1: binding placeholders before a new Worker's first deploy"
+spec:
+  goal: "A Worker whose service bindings name a Worker added in the same landing deploys: its pre-deploy creates the missing targets' placeholders, so bots-worker and api-edge converge on stage and prod."
+  affects:
+    - "apps/api-edge/component.yaml"
+    - "apps/bots-worker/component.yaml"
+    - "tasks/**"
+    - "specs/epics/agentdesk-agent-bots/**"
+  doneWhen:
+    - "the main convergence after this merge deploys bots-worker and api-edge on stage and prod"
+    - "GET /v1/organizations/{org}/projects/{p}/bot through api-edge reaches bots-worker (401 unauthenticated, not 404 or 503)"
+  gates: []

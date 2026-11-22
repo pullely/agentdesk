@@ -95,7 +95,10 @@ spec:
     typecheckCommand: pnpm exec turbo run typecheck --filter=@saas/bots-worker
     dryRunCommand: pnpm exec wrangler deploy --dry-run --config wrangler.jsonc --env prod
     deployCommand: pnpm exec wrangler deploy --config wrangler.jsonc --env prod
-    preDeployCommand: "echo 'No pre-deploy step configured.'"
+    # agentdesk (AD-11): placeholders for any binding target that does not
+    # exist yet (a Worker added in the same landing). policy-worker runs this
+    # too, but only when it deploys; a no-op on a live fleet.
+    preDeployCommand: "node ../../tooling/deploy/fleet-stubs.mjs --root ../.."
     migrationCommand: "echo 'No migrations configured.'"
     smokeCommand: "echo 'No smoke test configured.'"
   labels:
