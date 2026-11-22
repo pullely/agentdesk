@@ -1,0 +1,17 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-1
+  title: "AD0: the agentdesk-agent-bots epic doc set"
+spec:
+  goal: "The agentdesk-agent-bots design of record (README, design, implementation plan, risks, status) and this contract are on main, with the root LICENSE and NOTICE crediting the ported MIT code."
+  affects:
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "tasks/**"
+    - "LICENSE"
+    - "NOTICE"
+  doneWhen:
+    - "the five documents are on main under specs/epics/agentdesk-agent-bots/"
+    - "LICENSE (MIT) and NOTICE crediting vercel-labs/ai-sdk-slackbot and sourceplane/ai-slackbot are at the repository root"
+    - "task_get agentdesk-agent-bots lists milestones AD0–AD4"
+  gates: []
