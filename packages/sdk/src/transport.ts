@@ -18,7 +18,7 @@ export type AuthOption =
 export interface ClientOptions {
   /**
    * Base URL of the Agentdesk api-edge worker, e.g.
-   * `https://agentdesk-api-edge-prod.rahulvarghesepullely.workers.dev`. Trailing slash is stripped.
+   * `https://agentdesk-api-edge-prod.openproduct.workers.dev`. Trailing slash is stripped.
    */
   baseUrl: string;
   /** Optional auth credential; sent on every request when present. */

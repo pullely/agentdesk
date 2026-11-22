@@ -13,7 +13,7 @@ export const CLI_BIN = "agentdesk";
 export const PRODUCT_NAME = "agentdesk";
 
 /** Default API base URL when `--api-url` is not supplied. */
-export const DEFAULT_API_URL = "https://agentdesk-api-edge-prod.rahulvarghesepullely.workers.dev";
+export const DEFAULT_API_URL = "https://agentdesk-api-edge-prod.openproduct.workers.dev";
 
 /** OS keychain service name for stored credentials. */
 export const KEYCHAIN_SERVICE = `${CLI_BIN}-cli`;
