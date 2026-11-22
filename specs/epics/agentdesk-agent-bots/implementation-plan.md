@@ -6,7 +6,7 @@ manifest block, landed when every check is green. A milestone is marked ✅
 here when its "done when" list is true, and recorded in
 `IMPLEMENTATION-STATUS.md` by the PR that lands its last task.
 
-## AD0 — the spec
+## AD0 — the spec ✅
 
 This doc set and the first task contract, merged to `main`.
 
@@ -14,7 +14,7 @@ This doc set and the first task contract, merged to `main`.
 - the five documents are on `main` under `specs/epics/agentdesk-agent-bots/`
 - `task_get agentdesk-agent-bots` shows the epic with AD0–AD4, and `AD-1` reads `done`
 
-## AD1 — MVP
+## AD1 — MVP (landed; see IMPLEMENTATION-STATUS for what is verified live)
 
 The first bot that answers in Slack. Six tasks, because each new Worker is
 its own deployable and the tables, the vault and the permissions must be

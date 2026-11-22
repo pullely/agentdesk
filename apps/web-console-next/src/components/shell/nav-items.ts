@@ -69,6 +69,8 @@ export function buildNavSections(scope: NavScope, soloMode: boolean = SOLO_MODE)
           ]
         : [
             { href: `${orgBase}/projects`, label: "Projects", icon: "FolderKanban" },
+            // agentdesk: Slack, model keys, connectors.
+            { href: `${orgBase}/agents`, label: "Agents", icon: "Bot" },
             { href: `${orgBase}/usage`, label: "Usage & quota", icon: "Gauge" },
             // Opens the dedicated settings panel — flagged so the renderer shows a ›.
             { href: `${orgBase}/settings`, label: "Settings", icon: "Settings", subPanel: true },
@@ -82,6 +84,8 @@ export function buildNavSections(scope: NavScope, soloMode: boolean = SOLO_MODE)
       id: "project",
       label: projectSlug ? `Project · ${projectSlug}` : "Project",
       links: [
+        // agentdesk: a project is one bot.
+        { href: `${projectBase}/bot`, label: "Bot", icon: "Bot" },
         { href: `${projectBase}/environments`, label: "Environments", icon: "Boxes" },
         { href: `${projectBase}/git`, label: "Git", icon: "GitBranch" },
         { href: `${projectBase}/config`, label: "Config", icon: "SlidersHorizontal" },

@@ -1,0 +1,19 @@
+apiVersion: orun.io/v1
+kind: TaskContract
+metadata:
+  name: AD-7
+  title: "AD1: console — the Agents area and the bot builder"
+spec:
+  goal: "The console has an org-level Agents area (Slack connections, model keys, MCP connectors) and a per-project bot builder (Agent, Tools, Channels, Playground with trace, Runs with step trace, Publish), on stage and prod; the SDK has an agents client; the epic's status records AD1 as landed."
+  affects:
+    - "apps/web-console-next/**"
+    - "packages/sdk/**"
+    - "tests/web-console-next/**"
+    - "specs/epics/agentdesk-agent-bots/**"
+    - "WAITING.md"
+    - "tasks/**"
+  doneWhen:
+    - "the console on stage and prod serves /orgs/{org}/agents and /orgs/{org}/projects/{p}/bot"
+    - "the sidebar shows Agents (org) and Bot (project)"
+    - "IMPLEMENTATION-STATUS.md records AD1's PRs, what is verified live, and every departure"
+  gates: []

@@ -17,6 +17,7 @@ import { BillingClient } from "./billing.js";
 import { ConfigClient } from "./config.js";
 import { EnvironmentsClient } from "./environments.js";
 import { EventsClient } from "./events.js";
+import { AgentsClient } from "./agents.js";
 import { MembershipsClient } from "./memberships.js";
 import { MeteringClient } from "./metering.js";
 import { NotificationsClient } from "./notifications.js";
@@ -41,6 +42,8 @@ export class Agentdesk {
   readonly notifications: NotificationsClient;
   readonly auth: AuthClient;
   readonly integrations: IntegrationsClient;
+  /** agentdesk: bots, model keys, connectors, Slack, runs. */
+  readonly agents: AgentsClient;
   /** Underlying HTTP transport. Exposed for advanced extension. */
   readonly transport: Transport;
 
@@ -60,10 +63,12 @@ export class Agentdesk {
     this.notifications = new NotificationsClient(this.transport);
     this.auth = new AuthClient(this.transport);
     this.integrations = new IntegrationsClient(this.transport);
+    this.agents = new AgentsClient(this.transport);
   }
 }
 
 // Resource clients (also reachable via `client.<resource>`).
+export { AgentsClient } from "./agents.js";
 export { OrganizationsClient } from "./organizations.js";
 export { ProjectsClient } from "./projects.js";
 export { EnvironmentsClient } from "./environments.js";
